@@ -17,3 +17,32 @@ function getRandomValue(min , max){
             return {width: '0%'}
           }
           return {width: this.monsterHealth + '%'};
+        },
+        playerBarStyle() {
+          if (this.playerHealth < 0) {
+            return {width: '0%'}
+          }
+          return {width: this.playerHealth + '%'};
+        },
+        specialAttackRound () {
+          return this.currentRound % 5 !==0
+        }
+      },
+      watch: {
+        playerHealth(value) {
+          if(value <= 0 && this.monsterHealth <= 0) {
+            this.winner = 'draw';
+          }
+          else if (value <= 0) {
+            this.winner = 'monster';
+          }
+        },
+        monsterHealth(value) {
+          if (value <= 0 && this.playerHealth <= 0) {
+            this.winner = 'draw';
+          }
+          else if (value <= 0) {
+            this.winner = 'player';
+          }
+        }
+      }, 
